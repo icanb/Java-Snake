@@ -1,0 +1,112 @@
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.*;
+
+
+public class SnakePainter extends JComponent
+{
+   private int generation;
+   private SnakeBoard board1;
+   private int[][]graph;
+   
+   public SnakePainter(SnakeBoard board)
+   {//adjusts the properties
+     board1=board;
+     graph= new int[30][30];
+     
+    
+     
+   }
+   
+       
+    public void paintComponent(Graphics g)
+  { 
+           
+    try
+    {
+     for(int x=0; x<30; x++)
+     {
+       for(int y=0; y<30; y++)
+       {
+         graph[x][y]=0;
+       }
+       
+     }
+     
+               
+           
+     for(int i=0; i<board1.length; i++)
+     {
+    
+       graph[board1.X[i]][board1.Y[i]]=1;
+     }
+     
+     int a=board1.feedx;
+     int b=board1.feedy;
+     graph[a][b]=2;
+        g2 = (Graphics2D) g;
+        JFrame framePaint;
+                       
+     
+       //draws the board.
+         for(int r=0;r<30;r++)
+         {
+           for(int c=0;c<30;c++)
+           {
+              Rectangle box = new Rectangle((c)*20,(r)*20, 20, 20);
+              g2.draw(box);
+              
+              //if its a living cells it makes it red, otherwise green
+              if(graph[c][r]==1)
+                g.setColor(Color.RED);
+              else if(graph[c][r]==2)
+                g.setColor(Color.BLACK);
+              else
+                g.setColor(Color.GREEN);
+              g.fillRect((c)*20,(r)*20, 20, 20);
+    
+           }
+         }
+         //creates the next generation
+    }
+    catch(Exception e)
+    {
+        System.out.print("You looooose!");    
+    
+    }
+    
+       }
+   
+   public void nexMove(String a)
+   {
+     board1.nextMovement(a);
+     repaint();
+   }
+   
+    public void moveconstant()
+   {
+     board1.Move();
+     repaint();
+   }
+  
+   public int getPoint()
+   {
+        return board1.length-3; 
+     
+   }
+  
+  public Graphics2D g2;
+
+}
+   
+    
+       
+  
+  
+ 
+ 
+  
+  
+
+
